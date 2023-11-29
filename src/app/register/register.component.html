@@ -4,23 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="register.component.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif; /* Puedes cambiar 'Arial' por la fuente que desees */
+            background: linear-gradient(to right, #ff69b4, #9370db); /* Fondo difuminado de rosa a morado */
+        }
+
+        .container {
+            text-align: center;
+            border: 2px solid #ccc; /* Ancho del borde y color del borde */
+            padding: 20px; /* Espaciado interno del contenedor */
+            border-radius: 10px; /* Redondear las esquinas del borde */
+            background-color: #fff; /* Color de fondo del contenedor */
+            width: 400px; /* Ancho fijo del contenedor */
+        }
+
+        .Register {
+            margin-top: 20px;
+        }
+
+        label, input, button {
+            border-radius: 5px;
+            padding: 8px;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #2ecc71; /* Cambia el color del botón según tus preferencias */
+            color: #fff; /* Cambia el color del texto del botón según tus preferencias */
+            cursor: pointer;
+        }
+
+        input {
+            width: 200px; /* Ajusta el ancho del campo de entrada según tus preferencias */
+        }
+    </style>
     <title>Document</title>
 </head>
 <body>
-    <div class="psesion">
-    <p>Register</p>
-</div>
-<div class="btnRegister">
-</div>
-    <div class="Register">
-        <label for="">Name</label><br>
-        <input type="text" name="" id="" placeholder="ingresa tu nombre">
-    
-        <br><br>
-        <label for="">Password</label><br>
-        <input type="text" name="" id="" placeholder="ingresa tu password ">
+    <div class="container">
+        <div class="Register">
+            <label for="username">Username</label><br>
+            <input type="text" name="username" id="username" placeholder="Ingresa tu nombre" 
+            [(ngModel)] = "username">
+        
+            <br><br>
+            <label for="email">Email</label><br>
+            <input type="text" name="email" id="email" placeholder="Ingresa tu correo electrónico"
+            [(ngModel)] = "email">
 
-        <button>Guardar</button>   
+            <br><br>
+            <label for="password">Password</label><br>
+            <input type="password" name="password" id="password" placeholder="Ingresa tu contraseña"
+            [(ngModel)] = "password">
+
+            <br><br>
+            <label for="confirmPassword">Confirm Password</label><br>
+            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirma tu contraseña"
+            [(ngModel)] = "confirmPassword">
+
+            <br><br>
+            <button>Registrar</button>   
+        </div>
     </div>
 </body>
 </html>

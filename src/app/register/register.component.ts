@@ -1,63 +1,93 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
-interface datos{
-  Tipo_Documento: String,
-  Documento: String,
-  Username: String,
-  Email: String,
-  Password: String
-}
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class RegisterComponent {
-  storageGlobal: String = ''
-  campo='';
-
-  public datitos: datos[] = [];
-
-  createUser(){
-    const Tipo_Documento = (document.getElementById("Tipo_Documento") as HTMLSelectElement).value
-    const Documento = (document.getElementById("Documento") as HTMLSelectElement).value
-    const Username = (document.getElementById("Username") as HTMLSelectElement).value
-    const Email = (document.getElementById("Email") as HTMLSelectElement).value
-    const Password = (document.getElementById("Password") as HTMLSelectElement).value
-
-    const newData = {
-      Tipo_Documento: Tipo_Documento,
-      Documento: Documento,
-      Username: Username,
-      Email: Email,
-      Password: Password
-    }
-    this.datitos.push(newData)
-
-  }
-
   
-
-
-  
-  
-
   constructor(public router: Router){
     
   }
 
-  saveData(){
-    let campito = this.campo;
-    localStorage.setItem('campo', campito);
-  }
+  username: string = '';
+  email: string = '';
+  password: string = '';
+  confirmPassword: string = '';
+  storageGlobal: string = '';
 
-  getstoregeGlobal(){
-    let texto = JSON.stringify( localStorage.getItem('campo'))
-    console.log(texto)
-    //this.storageGlobal=texto
+  register() {
+    //Validar Campos
+      if (this. username !== '' && this.email !== '' && this.password !== '' && this.confirmPassword !== '') {
+        console.log("--------------------")
+        console.log("Registro En Proceso")
+        console.log("--------------------")
+    
+        // Datos
+        console.log("--------------------")
+        console.log('Username: ' + this.username)
+        console.log('Email: ' + this.email)
+        console.log('Password: ' + this.password)
+        console.log("--------------------")
+    
+        // Verificar si la contraseña y la confirmación son iguales
+        if (this.password === this.confirmPassword) {
+          console.log("--------------------")
+          console.log("Registro Exitoso")
+          console.log("--------------------")
+    
+          // Ingresar datos de la API
+          let nombreusu = JSON.stringify(this.username)
+          let correo = JSON.stringify(this.email);
+          let contrasena = JSON.stringify(this.confirmPassword);
+    
+          localStorage.setItem('nombreusu', nombreusu);
+          localStorage.setItem('email', correo);
+          localStorage.setItem('password', contrasena);
+    
+          // Redirección
+          console.log("Redireccionando al Login...")
+          this.router.navigateByUrl('/');
+        } else {
+          console.log("Las contraseñas deben coincidir")
+          alert("Las contraseñas deben coincidir")
+        }
+
+    } else {
+
+      if (this.username == '' && this.email == '' && this.password == '' && this.confirmPassword == ''){
+        console.log("Campos totalmente vacios")
+        alert("Campos totalmente vacios")
+      } else {
+        //Correo vacio
+        if (this.email == '') {
+          console.log("Por favor, ingresa un correo con @")
+          alert("Por favor, ingresa un correo con @")
+        }
+        //Contraseña vacia
+        if (this.password == '') {
+          console.log("Por favor, ingresa una contraseña valida")
+          alert("Por favor, ingresa una contraseña valida")
+        } else{
+          //Verificación vacio
+          if (this.confirmPassword == '') {
+            console.log(this.password)
+            console.log("Por favor, ingresa la contraseña nuevamente")
+            alert("Por favor, ingresa la contraseña nuevamente")
+          } else {
+            //Verificación no coincidida
+            console.log("Error A La Hora De Registrar")
+            alert("Error A La Hora De Registrar")
+          }
+        }
+      }
+    }
   }
-  
 
 }
